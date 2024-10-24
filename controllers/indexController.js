@@ -73,7 +73,12 @@ const registerPost = [
   }),
 ];
 
+const loginGet = asyncHandler(async (req, res) => {
+  res.render("login");
+});
+
 module.exports = {
   registerGet,
   registerPost,
+  loginGet,
 };
