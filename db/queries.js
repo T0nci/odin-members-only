@@ -1,6 +1,6 @@
 const db = require("./pool");
 
-module.exports = class Messages {
+class Messages {
   #query;
   constructor() {
     this.#query = db.query;
@@ -10,12 +10,18 @@ module.exports = class Messages {
     const { rows } = await this.#query("SELECT * FROM messages");
     return rows;
   }
-};
-
-module.exports = class Users {
+}
+class Users {
   #query;
   constructor() {
     this.#query = db.query;
+  }
+
+  async createUser(username, password, firstName, lastName) {
+    await db.query(
+      "INSERT INTO users (username, password, first_name, last_name, role) VALUES($1, $2, $3, $4, 'none')",
+      [username, password, firstName, lastName],
+    );
   }
 
   async getUserById(id) {
@@ -25,4 +31,9 @@ module.exports = class Users {
     );
     return rows[0];
   }
+}
+
+module.exports = {
+  Messages: new Messages(),
+  Users: new Users(),
 };
