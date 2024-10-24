@@ -1,3 +1,4 @@
+const CustomError = require("../utils/CustomError");
 const db = require("./pool");
 
 class Messages {
@@ -26,6 +27,15 @@ class Users {
     const { rows } = await db.query("SELECT * FROM users WHERE id = $1", [id]);
 
     return rows[0];
+  }
+
+  async setRole(id, roleNum) {
+    let role = null;
+    if (roleNum === 1) role = "member";
+    else if (roleNum === 2) role = "admin";
+    else throw new CustomError(404, "Role Not Found.");
+
+    await db.query("UPDATE users SET role = $1 WHERE id = $2", [role, id]);
   }
 }
 
