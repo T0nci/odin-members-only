@@ -1,4 +1,5 @@
 const asyncHandler = require("express-async-handler");
+const passport = require("passport");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const { Users } = require("../db/queries");
@@ -83,8 +84,14 @@ const loginGet = asyncHandler(async (req, res) => {
   res.render("login");
 });
 
+const loginPost = passport.authenticate("local", {
+  successRedirect: "/",
+  failureRedirect: "/login",
+});
+
 module.exports = {
   registerGet,
   registerPost,
   loginGet,
+  loginPost,
 };
