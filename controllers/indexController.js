@@ -100,9 +100,17 @@ const isAuth = (req, res, next) => {
   res.redirect("/login");
 };
 
-const joinGet = asyncHandler(async (req, res) => {
+const logout = (req, res, next) => {
+  req.logout((err) => {
+    if (err) return next(err);
+
+    res.redirect("/login");
+  });
+};
+
+const joinGet = (req, res) => {
   res.render("join", { links, user: req.user });
-});
+};
 
 module.exports = {
   registerGet,
@@ -110,5 +118,6 @@ module.exports = {
   loginGet,
   loginPost,
   isAuth,
+  logout,
   joinGet,
 };
