@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register - Members Only</title>
+  </head>
+  <body>
+    <main>
+      <header>Register</header>
+      <form action="/register" method="POST">
+        <div>
+          <label for="username">Username:</label>
+          <input
+            type="text"
+            name="username"
+            id="username"
+            autocomplete="off"
+            autofocus
+            required
+          />
+        </div>
+        <div>
+          <label for="password">Password:</label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            autocomplete="off"
+            required
+          />
+        </div>
+        <div>
+          <label for="firstName">First Name:</label>
+          <input
+            type="text"
+            name="firstName"
+            id="firstName"
+            autocomplete="off"
+            required
+          />
+        </div>
+        <div>
+          <label for="lastName">Last Name:</label>
+          <input
+            type="text"
+            name="lastName"
+            id="lastName"
+            autocomplete="off"
+            required
+          />
+        </div>
+        <div>
+          <button type="submit">Register</button>
+        </div>
+      </form>
+      <p>Already have an account? <a href="/login">Login here</a></p>
+    </main>
+  </body>
+</html>
