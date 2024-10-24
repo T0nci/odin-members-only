@@ -32,18 +32,24 @@ const validateRegister = () => [
     .withMessage(
       "Password must contain at least: 1 uppercase letter, 1 lowercase letter, 1 number and 1 symbol.",
     ),
+  body("confirmPassword")
+    .trim()
+    .custom((password, { req }) => {
+      return password === req.body.password;
+    })
+    .withMessage("Passwords don't match."),
   body("firstName")
     .trim()
     .isLength({ min: 1, max: 50 })
-    .withMessage("First Name must contain between 1 and 50 characters.")
+    .withMessage("First name must contain between 1 and 50 characters.")
     .isAlpha()
-    .withMessage("First Name must contain only letter from the alphabet"),
+    .withMessage("First name must contain only letter from the alphabet"),
   body("lastName")
     .trim()
     .isLength({ min: 1, max: 50 })
-    .withMessage("Last Name must contain between 1 and 50 characters.")
+    .withMessage("Last name must contain between 1 and 50 characters.")
     .isAlpha()
-    .withMessage("Last Name must contain only letter from the alphabet"),
+    .withMessage("Last name must contain only letter from the alphabet"),
 ];
 
 const registerGet = asyncHandler(async (req, res) => {
