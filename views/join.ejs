@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join - Members Only</title>
+  </head>
+  <body>
+    <%- include("partials/navbar", { links: links }) %>
+    <main>
+      <header>Join the club!</header>
+      <div>
+        <form action="/join-club" method="POST">
+          <div>
+            <label>
+              Members passcode:
+              <input type="password" name="password" autocomplete="off" autofocus required>
+            </label>
+          </div>
+          <button type="submit">Join</button>
+        </form>
+        <form action="/join-admin" method="POST">
+          <div>
+            <label>
+              Admin passcode:
+              <input type="password" name="password" autocomplete="off" required>
+            </label>
+          </div>
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>

@@ -3,6 +3,7 @@ const passport = require("passport");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const { Users } = require("../db/queries");
+const links = require("../utils/links");
 
 const validateRegister = () => [
   body("username")
@@ -99,10 +100,15 @@ const isAuth = (req, res, next) => {
   res.redirect("/login");
 };
 
+const joinGet = asyncHandler(async (req, res) => {
+  res.render("join", { links, user: req.user });
+});
+
 module.exports = {
   registerGet,
   registerPost,
   loginGet,
   loginPost,
   isAuth,
+  joinGet,
 };
