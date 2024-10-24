@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Members Only</title>
+  </head>
+  <body>
+    <main>
+      <header>Login</header>
+      <form action="/login" method="POST">
+        <%- include("partials/errors", { errors: locals.errors }) %>
+        <div>
+          <label for="username">Username:</label>
+          <input
+            type="text"
+            name="username"
+            id="username"
+            autocomplete="off"
+            autofocus
+            required
+          />
+        </div>
+        <div>
+          <label for="password">Password:</label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            autocomplete="off"
+            required
+          />
+        </div>
+        <div>
+          <button type="submit">Register</button>
+        </div>
+      </form>
+      <p>Don't have an account? <a href="/register">Register here</a></p>
+    </main>
+  </body>
+</html>
