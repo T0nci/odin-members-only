@@ -54,6 +54,14 @@ const validateRegister = () => [
     .withMessage("Last name must contain only letter from the alphabet"),
 ];
 
+const validateClubPassword = () =>
+  body("password").custom((password) => password === process.env.CLUB_PASSWORD);
+
+const validateAdminPassword = () =>
+  body("password").custom(
+    (password) => password === process.env.ADMIN_PASSWORD,
+  );
+
 const registerGet = asyncHandler(async (req, res) => {
   if (req.isAuthenticated()) return res.redirect("/messages");
 
@@ -112,6 +120,33 @@ const joinGet = (req, res) => {
   res.render("join", { links, user: req.user });
 };
 
+const joinClubPost = [
+  validateClubPassword(),
+  asyncHandler(async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) return res.redirect("/join");
+
+    if (req.user.role === "member" || req.user.role === "admin")
+      return res.redirect("/join");
+
+    await Users.setRole(req.user.id, 1);
+    res.redirect("/join");
+  }),
+];
+
+const joinAdminPost = [
+  validateAdminPassword(),
+  asyncHandler(async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) return res.redirect("/join");
+
+    if (req.user.role === "admin") return res.redirect("/join");
+
+    await Users.setRole(req.user.id, 2);
+    res.redirect("/join");
+  }),
+];
+
 module.exports = {
   registerGet,
   registerPost,
@@ -120,4 +155,6 @@ module.exports = {
   isAuth,
   logout,
   joinGet,
+  joinClubPost,
+  joinAdminPost,
 };
