@@ -54,6 +54,8 @@ const validateRegister = () => [
 ];
 
 const registerGet = asyncHandler(async (req, res) => {
+  if (req.isAuthenticated()) res.redirect("/messages");
+
   res.render("register");
 });
 
@@ -81,6 +83,8 @@ const registerPost = [
 ];
 
 const loginGet = asyncHandler(async (req, res) => {
+  if (req.isAuthenticated()) res.redirect("/messages");
+
   res.render("login");
 });
 
@@ -89,9 +93,16 @@ const loginPost = passport.authenticate("local", {
   failureRedirect: "/login",
 });
 
+const isAuth = (req, res, next) => {
+  if (req.isAuthenticated()) next();
+
+  res.redirect("/login");
+};
+
 module.exports = {
   registerGet,
   registerPost,
   loginGet,
   loginPost,
+  isAuth,
 };
