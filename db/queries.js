@@ -24,6 +24,15 @@ class Users {
     );
   }
 
+  async getUserByUsername(username) {
+    const { rows } = await db.query(
+      "SELECT username FROM users WHERE username = $1",
+      [username],
+    );
+
+    return rows[0];
+  }
+
   async getUserById(id) {
     const { rows } = await this.#query(
       "SELECT id, username, password FROM users WHERE id = $1",
