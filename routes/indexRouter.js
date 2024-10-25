@@ -11,6 +11,6 @@ indexRouter.use(indexController.isAuth);
 indexRouter.get("/logout", indexController.logout);
 indexRouter.get("/join", indexController.joinGet);
 indexRouter.post("/join-club", indexController.joinClubPost);
-indexRouter.post("/join-club", indexController.joinAdminPost);
+indexRouter.post("/join-admin", indexController.joinAdminPost);
 
 module.exports = indexRouter;
