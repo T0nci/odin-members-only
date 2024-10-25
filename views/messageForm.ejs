@@ -10,6 +10,7 @@
     <main>
       <header>New message</header>
       <form action="/messages/create" method="POST">
+        <%- include("partials/errors", { errors: locals.errors }) %>
         <div>
           <label for="title">Title:</label>
           <input type="text" name="title" id="title" autocomplete="off" autofocus required>
