@@ -10,7 +10,9 @@ class Messages {
   }
 
   async getAllMessages() {
-    const { rows } = await db.query("SELECT * FROM messages");
+    const { rows } = await db.query(
+      "SELECT * FROM messages JOIN users ON messages.user_id = users.id",
+    );
     return rows;
   }
 }

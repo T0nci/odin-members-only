@@ -16,6 +16,11 @@ const validateCreateMessage = () => [
     .withMessage("Text must contain between 1 and 200 characters."),
 ];
 
+const messagesGet = asyncHandler(async (req, res) => {
+  const messages = await Messages.getAllMessages();
+  res.render("messages", { links, user: req.user, messages });
+});
+
 const messageCreateGet = (req, res) => {
   res.render("messageForm", { links });
 };
@@ -34,6 +39,7 @@ const messageCreatePost = [
 ];
 
 module.exports = {
+  messagesGet,
   messageCreateGet,
   messageCreatePost,
 };

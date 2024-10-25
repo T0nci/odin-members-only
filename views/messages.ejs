@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages - Members Only</title>
+  </head>
+  <body>
+    <%- include("partials/navbar", { links }) %>
+    <main>
+      <header>Welcome to all messages <%= user.first_name %> <%= user.last_name %>!</header>
+      <ul>
+        <% messages.forEach((message) => { %>
+          <li>
+            <p><%= user.role === 'none' ? 'Anonymous' : message.first_name %></p>
+            <p>at <%= user.role === 'none' 
+              ? '???' 
+              : `${message.date.getHours()}:${message.date.getMinutes()} ${message.date.getDate()}-${message.date.getMonth() + 1}-${message.date.getFullYear()}` %>
+            </p>
+            <p><%= message.title %></p>
+            <p><%= message.text %></p>
+          </li>
+        <% }) %>
+      </ul>
+    </main>    
+  </body>
+</html>
