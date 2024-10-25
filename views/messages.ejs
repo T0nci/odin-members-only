@@ -19,6 +19,11 @@
             </p>
             <p><%= message.title %></p>
             <p><%= message.text %></p>
+            <% if (user.role === 'admin') { %>
+              <form action="/messages/delete/<%= message.id %>" method="POST">
+                <button type="submit">Delete</button>
+              </form>
+            <% } %>
           </li>
         <% }) %>
       </ul>

@@ -15,6 +15,18 @@ class Messages {
     );
     return rows;
   }
+
+  async deleteMessageById(id) {
+    await db.query("DELETE FROM messages WHERE id = $1", [id]);
+  }
+
+  async getMessageById(id) {
+    const { rows } = await db.query("SELECT * FROM messages WHERE id = $1", [
+      id,
+    ]);
+
+    return rows[0];
+  }
 }
 class Users {
   async createUser(username, password, firstName, lastName) {

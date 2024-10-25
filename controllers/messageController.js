@@ -1,7 +1,8 @@
 const asyncHandler = require("express-async-handler");
-const { body, validationResult } = require("express-validator");
+const { body, validationResult, param } = require("express-validator");
 const { Messages } = require("../db/queries");
 const links = require("../utils/links");
+const CustomError = require("../utils/CustomError");
 
 const validateCreateMessage = () => [
   body("title")
@@ -15,6 +16,13 @@ const validateCreateMessage = () => [
     .isLength({ min: 1, max: 200 })
     .withMessage("Text must contain between 1 and 200 characters."),
 ];
+
+const validateMessageId = () =>
+  param("id").custom(async (id) => {
+    const result = await Messages.getMessageById(Number(id));
+
+    if (!result) throw false;
+  });
 
 const messagesGet = asyncHandler(async (req, res) => {
   const messages = await Messages.getAllMessages();
@@ -38,8 +46,20 @@ const messageCreatePost = [
   }),
 ];
 
+const messageDeletePost = [
+  validateMessageId(),
+  asyncHandler(async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) throw new CustomError(400, "Message Not Found");
+
+    await Messages.deleteMessageById(Number(req.params.id));
+    res.redirect("/messages");
+  }),
+];
+
 module.exports = {
   messagesGet,
   messageCreateGet,
   messageCreatePost,
+  messageDeletePost,
 };
