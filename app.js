@@ -5,6 +5,7 @@ const passport = require("passport");
 const path = require("node:path");
 const CustomError = require("./utils/CustomError");
 const indexRouter = require("./routes/indexRouter");
+const messageRouter = require("./routes/messageRouter");
 
 const app = express();
 
@@ -38,6 +39,7 @@ require("./utils/passport-setup");
 app.use(passport.session());
 
 app.use("/", indexRouter);
+app.use("/messages", messageRouter);
 
 app.use((req, res) => {
   res.status(404).render("error", { error: new CustomError(404, "Not Found") });
