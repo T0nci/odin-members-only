@@ -11,7 +11,7 @@ class Messages {
 
   async getAllMessages() {
     const { rows } = await db.query(
-      "SELECT * FROM messages JOIN users ON messages.user_id = users.id",
+      "SELECT messages.id, title, text, date, user_id, first_name, last_name, role FROM messages JOIN users ON messages.user_id = users.id",
     );
     return rows;
   }
